@@ -6,12 +6,12 @@ namespace Saturno_Backend.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ClientController : ControllerBase {
+public class ServiceController : ControllerBase {
 
     public readonly ClientService _service;
-    public ClientController(ClientService client)
+    public ServiceController(ClientService client)
     {
-        _service = client;
+        _service = service;
     }
 
     [HttpGet]
