@@ -15,66 +15,64 @@ public class ClientController : ControllerBase {
     }
 
     [HttpGet]
-    public IEnumerable<Client> Get()
+    public async Task<IEnumerable<Client>> Get()
     {
-        return _service.GetAll();
+        return await _service.GetAll();
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Client> GetById(int id)
+    public async Task<ActionResult<Client>> GetById(int id)
     {
-        var client = _service.GetById(id);
+        var client = await _service.GetById(id);
         
         if(client is null)
         {
-            return NotFound();
+            return NotFound(
+                new { message = $"El cliente con ID = {id} no existe." });
         }
 
        return client;
     }
 
     [HttpPost]
-    public IActionResult Create(Client client)
+    public async Task<IActionResult> Create(Client client)
     {
-        var newClient = _service.Create(client);
+        var newClient = await _service.Create(client);
 
         return CreatedAtAction(nameof(GetById), new {id = newClient.Id}, newClient);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Client client)
+    public async Task<IActionResult> Update(int id, Client client)
     {
         if (id != client.Id)
         {
-            return BadRequest();
+            return BadRequest(new { message = $"El ID({id}) de la URL no coincide con el ID({client.Id}) de la Body Request." });
         }
          
-         var clientToUpdate = _service.GetById(id);
+         var clientToUpdate = await _service.GetById(id);
 
          if(clientToUpdate != null)
          {
-            _service.Update(id, client);
+            await _service.Update(id, client);
             return NoContent();
-         }else{
-            return NotFound();
          }
+         else{return NotFound(); }
     }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
-         var clientToDelete = _service.GetById(id);
+         var clientToDelete = await _service.GetById(id);
 
          if(clientToDelete != null)
          {
-            _service.Delete(id);
+            await _service.Delete(id);
             return Ok();
 
-         }else{
+         } else{ return NotFound(); } 
 
-            return NotFound();           
-         } 
         }
 
 }

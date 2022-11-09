@@ -15,15 +15,15 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Professional> Get()
+    public async Task<IEnumerable<Professional>> Get()
     {
-        return _service.GetAll();
+        return await _service.GetAll();
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Professional> GetById(int id)
+    public async Task<ActionResult<Professional>> GetById(int id)
     {
-        var professional = _service.GetById(id);
+        var professional = await _service.GetById(id);
         
         if(professional is null)
         {
@@ -34,26 +34,26 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(Professional professional)
+    public async Task<IActionResult> Create(Professional professional)
     {
-        var newProfessional = _service.Create(professional);
+        var newProfessional = await _service.Create(professional);
 
         return CreatedAtAction(nameof(GetById), new {id = newProfessional.Id}, newProfessional );
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Professional professional)
+    public async Task<IActionResult> Update(int id, Professional professional)
     {
         if (id != professional.Id)
         {
             return BadRequest();
         }
          
-         var professionalToUpdate = _service.GetById(id);
+         var professionalToUpdate = await _service.GetById(id);
 
          if(professionalToUpdate != null)
          {
-            _service.Update(id, professional);
+            await _service.Update(id, professional);
 
             return NoContent();
          }else{
@@ -63,19 +63,18 @@ public class ProfessionalController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-         var professionalToDelete = _service.GetById(id);
+         var professionalToDelete = await _service.GetById(id);
 
          if(professionalToDelete != null)
          {
-            _service.Delete(id);
+            await _service.Delete(id);
             return Ok();
 
-         }else{
-
-            return NotFound();
-         } 
+         }
+         else{ return NotFound(); } 
+         
         }
 
 }

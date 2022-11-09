@@ -13,5 +13,5 @@ public partial class Service
 
     public string Description { get; set; } = null!;
 
-    public virtual ICollection<Turn> Turns { get; } = new List<Turn>();
+    public virtual List<Turn> Turns { get; } = new List<Turn>();
 }

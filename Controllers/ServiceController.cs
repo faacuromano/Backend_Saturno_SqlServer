@@ -15,15 +15,15 @@ public class ServiceController : ControllerBase {
     }
 
     [HttpGet]
-    public IEnumerable<Service> Get()
+    public async Task<IEnumerable<Service>> Get()
     {
-        return _service.GetAll();
+        return await _service.GetAll();
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Service> GetById(int id)
+    public async Task<ActionResult<Service>> GetById(int id)
     {
-        var service = _service.GetById(id);
+        var service = await _service.GetById(id);
         
         if(service is null)
         {
@@ -34,26 +34,26 @@ public class ServiceController : ControllerBase {
     }
 
     [HttpPost]
-    public IActionResult Create(Service service)
+    public async Task<IActionResult> Create(Service service)
     {
-        var newService = _service.Create(service);
+        var newService = await _service.Create(service);
 
         return CreatedAtAction(nameof(GetById), new {id = newService.Id}, newService);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Service service)
+    public async Task<IActionResult> Update(int id, Service service)
     {
         if (id != service.Id)
         {
             return BadRequest();
         }
          
-         var serviceToUpdate = _service.GetById(id);
+         var serviceToUpdate = await _service.GetById(id);
 
          if(serviceToUpdate != null)
          {
-            _service.Update(id, service);
+            await _service.Update(id, service);
             return NoContent();
          }else{
             return NotFound();
@@ -61,14 +61,14 @@ public class ServiceController : ControllerBase {
     }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
-         var serviceToDelete = _service.GetById(id);
+         var serviceToDelete = await _service.GetById(id);
 
          if(serviceToDelete != null)
          {
-            _service.Delete(id);
+            await _service.Delete(id);
             return Ok();
 
          }else{

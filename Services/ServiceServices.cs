@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data;
 using Saturno_Backend.Data.Models;
 
@@ -12,28 +13,28 @@ public class ServiceServices
         _context = context;
     }
 
-    public IEnumerable<Service> GetAll()
+    public async Task<IEnumerable<Service>> GetAll()
     {
-        return _context.Services.ToList();
+        return await _context.Services.ToListAsync();
     }
 
-     public Service? GetById(int id)
+     public async Task<Service?> GetById(int id)
     {
-        return _context.Services.Find(id);
+        return await _context.Services.FindAsync(id);
     }
 
-    public Service Create(Service newService)
+    public async Task<Service> Create(Service newService)
     {
         _context.Services.Add(newService);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         
         return newService;
     }
 
-    public void Update(int id, Service service)
+    public async Task Update(int id, Service service)
     {
          
-        var existingService = GetById(id); 
+        var existingService = await GetById(id); 
 
         if(existingService != null) 
         { 
@@ -42,18 +43,19 @@ public class ServiceServices
             existingService.Price = service.Price;
             existingService.Description = service.Description;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
          }
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var existingService = GetById(id); 
+        var existingService = await GetById(id); 
 
         if(existingService != null) 
-        { 
-        _context.Services.Remove(existingService);
-        _context.SaveChanges();
+         {
+            _context.Services.Remove(existingService);
+
+            await _context.SaveChangesAsync();
         }
     }
 

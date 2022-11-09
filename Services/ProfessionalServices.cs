@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data;
 using Saturno_Backend.Data.Models;
 
@@ -12,28 +13,28 @@ public class ProfessionalServices
         _context = context;
     }
 
-    public IEnumerable<Professional> GetAll()
+    public async Task<IEnumerable<Professional>> GetAll()
     {
-        return _context.Professionals.ToList();
+        return await _context.Professionals.ToListAsync();
     }
 
-     public Professional? GetById(int id)
+     public async Task<Professional?> GetById(int id)
     {
-        return _context.Professionals.Find(id);
+        return await _context.Professionals.FindAsync(id);
     }
 
-    public Professional Create(Professional newProfessional)
+    public async Task<Professional> Create(Professional newProfessional)
     {
         _context.Professionals.Add(newProfessional);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         
         return newProfessional;
     }
 
-    public void Update(int id, Professional professional)
+    public async Task Update(int id, Professional professional)
     {
          
-        var existingProfessional = GetById(id); 
+        var existingProfessional = await GetById(id); 
 
         if(existingProfessional != null) 
         { 
@@ -46,18 +47,18 @@ public class ProfessionalServices
             existingProfessional.BannerPhoto   = professional.BannerPhoto  ;
             existingProfessional.PhoneNumber = professional.PhoneNumber;
 
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
          }
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var existingProfessional = GetById(id); 
+        var existingProfessional = await GetById(id); 
 
         if(existingProfessional != null) 
         { 
         _context.Professionals.Remove(existingProfessional);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         }
     }
 
