@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Saturno_Backend.Data.Models;
 
-public partial class Turn
+public partial class Appointment
 {
     public int Id { get; set; }
 
