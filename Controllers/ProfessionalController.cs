@@ -8,11 +8,74 @@ namespace Saturno_Backend.Controllers;
 [Route("[controller]")]
 public class ProfessionalController : ControllerBase 
 {
-    public readonly ProfessionalService _service;
-    public ProfessionalController(ProfessionalService professional)
+    public readonly ProfessionalServices _service;
+    public ProfessionalController(ProfessionalServices professional)
     {
         _service = professional;
     }
 
+    [HttpGet]
+    public IEnumerable<Professional> Get()
+    {
+        return _service.GetAll();
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Professional> GetById(int id)
+    {
+        var professional = _service.GetById(id);
+        
+        if(professional is null)
+        {
+            return NotFound();
+        }
+
+       return professional;
+    }
+
+    [HttpPost]
+    public IActionResult Create(Professional professional)
+    {
+        var newProfessional = _service.Create(professional);
+
+        return CreatedAtAction(nameof(GetById), new {id = newProfessional.Id}, newProfessional );
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Professional professional)
+    {
+        if (id != professional.Id)
+        {
+            return BadRequest();
+        }
+         
+         var professionalToUpdate = _service.GetById(id);
+
+         if(professionalToUpdate != null)
+         {
+            _service.Update(id, professional);
+
+            return NoContent();
+         }else{
+
+            return NotFound();
+         }
+    }
+
+    [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+         var professionalToDelete = _service.GetById(id);
+
+         if(professionalToDelete != null)
+         {
+            _service.Delete(id);
+            return Ok();
+
+         }else{
+
+            return NotFound();
+         } 
+        }
 
 }

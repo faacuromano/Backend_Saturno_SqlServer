@@ -17,6 +17,7 @@ builder.Services.AddSqlServer<SaturnoContext>(builder.Configuration.GetConnectio
 
 //Capa de servicios
 builder.Services.AddScoped<ClientService>();
+builder.Services.AddScoped<ProfessionalServices>();
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
