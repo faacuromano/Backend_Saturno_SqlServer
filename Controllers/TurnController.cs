@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
@@ -15,15 +16,15 @@ public class TurnController : ControllerBase {
     }
 
     [HttpGet]
-    public IEnumerable<Turn> Get()
+    public async Task<IEnumerable<Turn>> Get()
     {
-        return _service.GetAll();
+        return await _service.GetAll();
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Turn> GetById(int id)
+    public async Task<ActionResult<Turn>> GetById(int id)
     {
-        var appointment = _service.GetById(id);
+        var appointment = await _service.GetById(id);
         
         if(appointment is null)
         {
@@ -34,26 +35,26 @@ public class TurnController : ControllerBase {
     }
 
     [HttpPost]
-    public IActionResult Create(Turn appointment)
+    public async Task<IActionResult> Create(Turn appointment)
     {
-        var newAppointment = _service.Create(appointment);
+        var newAppointment = await _service.Create(appointment);
 
         return CreatedAtAction(nameof(GetById), new {id = newAppointment.Id}, newAppointment);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Turn appointment)
+    public async Task<IActionResult> Update(int id, Turn appointment)
     {
         if (id != appointment.Id)
         {
             return BadRequest();
         }
          
-         var appointmentToUpdate = _service.GetById(id);
+         var appointmentToUpdate = await _service.GetById(id);
 
          if(appointmentToUpdate != null)
          {
-            _service.Update(id, appointment);
+            await _service.Update(id, appointment);
             return NoContent();
          }else{
             return NotFound();
@@ -61,14 +62,14 @@ public class TurnController : ControllerBase {
     }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
-         var AppointmentToDelete = _service.GetById(id);
+         var AppointmentToDelete = await _service.GetById(id);
 
          if(AppointmentToDelete != null)
          {
-            _service.Delete(id);
+            await _service.Delete(id);
             return Ok();
 
          }else{

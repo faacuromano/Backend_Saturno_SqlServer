@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data;
 using Saturno_Backend.Data.Models;
 
@@ -12,49 +13,49 @@ public class TurnServices
         _context = context;
     }
 
-    public IEnumerable<Turn> GetAll()
+    public async Task<IEnumerable<Turn>> GetAll()
     {
-        return _context.Turns.ToList();
+        return await _context.Turns.ToListAsync();
     }
 
-     public Turn? GetById(int id)
+     public async Task<Turn?> GetById(int id)
     {
-        return _context.Turns.Find(id);
+        return await _context.Turns.FindAsync(id);
     }
 
-    public Turn Create(Turn newTurn)
+    public async Task<Turn> Create(Turn newTurn)
     {
         _context.Turns.Add(newTurn);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         
         return newTurn;
     }
 
-    public void Update(int id, Turn appointment)
+    public async Task Update(int id, Turn turn)
     {
          
-        var existingAppointment = GetById(id); 
+        var  existingTurn = await GetById(id); 
 
-        if(existingAppointment != null) 
+        if(existingTurn != null) 
         { 
-            existingAppointment.Id = appointment.Id;
-            existingAppointment.Name = appointment.Name;
-            existingAppointment.Client = appointment.Client;
-            existingAppointment.Professional = appointment.Professional;
-            existingAppointment.Service = appointment.Service;
+            existingTurn.Id = turn.Id;
+            existingTurn.Name = turn.Name;
+            existingTurn.Client = turn.Client;
+            existingTurn.Professional = turn.Professional;
+            existingTurn.Service = turn.Service;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
          }
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var existingAppointment = GetById(id); 
+        var existingTurn = await GetById(id); 
 
-        if(existingAppointment != null) 
+        if(existingTurn != null) 
         { 
-        _context.Turns.Remove(existingAppointment);
-        _context.SaveChanges();
+        _context.Turns.Remove(existingTurn);
+        await _context.SaveChangesAsync();
         }
     }
 
