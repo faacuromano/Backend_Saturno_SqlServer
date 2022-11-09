@@ -53,7 +53,7 @@ public class ClientController : ControllerBase {
 
          if(clientToUpdate != null)
          {
-            _service.Update(id, clientToUpdate);
+            _service.Update(id, client);
             return NoContent();
          }else{
             return NotFound();

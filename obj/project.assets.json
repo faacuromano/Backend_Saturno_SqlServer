@@ -3690,11 +3690,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\Saturno_Backend\\Saturno_Backend.csproj",
+      "projectUniqueName": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\toclone\\Backend_Saturno_SqlServer\\Saturno_Backend.csproj",
       "projectName": "Saturno_Backend",
-      "projectPath": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\Saturno_Backend\\Saturno_Backend.csproj",
+      "projectPath": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\toclone\\Backend_Saturno_SqlServer\\Saturno_Backend.csproj",
       "packagesPath": "C:\\Users\\Facundo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\Saturno_Backend\\obj\\",
+      "outputPath": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\toclone\\Backend_Saturno_SqlServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Facundo\\AppData\\Roaming\\NuGet\\NuGet.Config",
