@@ -162,3 +162,4 @@ C:\Users\Facundo\Desktop\SaturnoBack\toclone\Backend_Saturno_SqlServer\obj\Debug
 C:\Users\Facundo\Desktop\SaturnoBack\toclone\Backend_Saturno_SqlServer\obj\Debug\net6.0\Saturno_Backend.pdb
 C:\Users\Facundo\Desktop\SaturnoBack\toclone\Backend_Saturno_SqlServer\obj\Debug\net6.0\Saturno_Backend.genruntimeconfig.cache
 C:\Users\Facundo\Desktop\SaturnoBack\toclone\Backend_Saturno_SqlServer\obj\Debug\net6.0\ref\Saturno_Backend.dll
+C:\Users\Facundo\Desktop\SaturnoBack\toclone\Backend_Saturno_SqlServer\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "3sWGuLrddz1m+3SDQTL7xenWdaz4BGlWQSEw03tvRLxO2m6D7704DNK6vnlNl6assWMIR/q51Cz0fO3rbLbpJg==",
+  "dgSpecHash": "SnX3PDj81JfLbZ2/JqD9ZLGl0KjM0gC9zyTPaTR6FWMNqGwzvwQEB4QdWPlawaINKZfw20C2OzPq4tGGe7iFtg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Facundo\\Desktop\\SaturnoBack\\toclone\\Backend_Saturno_SqlServer\\Saturno_Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Facundo\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Facundo\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Facundo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Facundo\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.8\\microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",
     "C:\\Users\\Facundo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Facundo\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Facundo\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",

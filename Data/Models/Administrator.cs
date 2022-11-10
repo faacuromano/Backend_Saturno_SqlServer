@@ -11,7 +11,7 @@ public partial class Administrator
 
     public string Email { get; set; } = null!;
 
-    public string Pasword { get; set; } = null!;
+    public string Password { get; set; } = null!;
 
     public string AdminType { get; set; } = null!;
 
