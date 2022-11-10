@@ -24,7 +24,6 @@ public class LoginController : ControllerBase
         this.config = config;
     }
 
-    [Authorize(Policy = "SuperAdmin")]
     [HttpPost("authenticate")]
     public async Task<IActionResult> Login(AdminDto adminDto)
     {
