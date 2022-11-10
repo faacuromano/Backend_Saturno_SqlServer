@@ -26,6 +26,20 @@ public class TurnServices
         }).ToListAsync();
     }
 
+        public async Task<TurnDtoOut?> GetDtoById(int id)
+    {
+        return await _context.Turns.
+        Where(t => t.Id == id).
+        Select(t => new TurnDtoOut
+        {
+            Id = t.Id,
+            ProfessionalName = t.ProfessionalNavigation.Name,
+            ClientName = t.ClientNavigation.Name,
+            ServiceName = t.ServiceNavigation.Name,
+            
+        }).SingleOrDefaultAsync();
+    }
+
      public async Task<Turn?> GetById(int id)
     {
         return await _context.Turns.FindAsync(id);

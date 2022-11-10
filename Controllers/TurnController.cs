@@ -22,9 +22,9 @@ public class TurnController : ControllerBase {
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Turn>> GetById(int id)
+    public async Task<ActionResult<TurnDtoOut>> GetById(int id)
     {
-        var turn = await _service.GetById(id);
+        var turn = await _service.GetDtoById(id);
         
         if(turn is null)
         {
