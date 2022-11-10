@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.Dto;
 
 namespace Saturno_Backend.Data;
 
