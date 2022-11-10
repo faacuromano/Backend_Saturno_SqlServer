@@ -6,7 +6,7 @@ namespace Saturno_Backend.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ProfessionalController : ControllerBase 
+public class ProfessionalController : ControllerBase
 {
     public readonly ProfessionalServices _service;
     public ProfessionalController(ProfessionalServices professional)
@@ -14,67 +14,69 @@ public class ProfessionalController : ControllerBase
         _service = professional;
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     public async Task<IEnumerable<Professional>> Get()
     {
         return await _service.GetAll();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get/{id}")]
     public async Task<ActionResult<Professional>> GetById(int id)
     {
         var professional = await _service.GetById(id);
-        
-        if(professional is null)
+
+        if (professional is null)
         {
             return NotFound();
         }
 
-       return professional;
+        return professional;
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(Professional professional)
     {
         var newProfessional = await _service.Create(professional);
 
-        return CreatedAtAction(nameof(GetById), new {id = newProfessional.Id}, newProfessional );
+        return CreatedAtAction(nameof(GetById), new { id = newProfessional.Id }, newProfessional);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id, Professional professional)
     {
         if (id != professional.Id)
         {
             return BadRequest();
         }
-         
-         var professionalToUpdate = await _service.GetById(id);
 
-         if(professionalToUpdate != null)
-         {
+        var professionalToUpdate = await _service.GetById(id);
+
+        if (professionalToUpdate != null)
+        {
             await _service.Update(id, professional);
 
             return NoContent();
-         }else{
+        }
+        else
+        {
 
             return NotFound();
-         }
+        }
     }
 
-    [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-         var professionalToDelete = await _service.GetById(id);
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var professionalToDelete = await _service.GetById(id);
 
-         if(professionalToDelete != null)
-         {
+        if (professionalToDelete != null)
+        {
             await _service.Delete(id);
             return Ok();
 
-         }
-         else{ return NotFound(); } 
-         
         }
+        else { return NotFound(); }
+
+    }
 
 }

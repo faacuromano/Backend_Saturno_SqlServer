@@ -6,7 +6,8 @@ namespace Saturno_Backend.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ServiceController : ControllerBase {
+public class ServiceController : ControllerBase
+{
 
     public readonly ServiceServices _service;
     public ServiceController(ServiceServices service)
@@ -14,68 +15,72 @@ public class ServiceController : ControllerBase {
         _service = service;
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     public async Task<IEnumerable<Service>> Get()
     {
         return await _service.GetAll();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get/{id}")]
     public async Task<ActionResult<Service>> GetById(int id)
     {
         var service = await _service.GetById(id);
-        
-        if(service is null)
+
+        if (service is null)
         {
             return NotFound();
         }
 
-       return service;
+        return service;
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(Service service)
     {
         var newService = await _service.Create(service);
 
-        return CreatedAtAction(nameof(GetById), new {id = newService.Id}, newService);
+        return CreatedAtAction(nameof(GetById), new { id = newService.Id }, newService);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id, Service service)
     {
         if (id != service.Id)
         {
             return BadRequest();
         }
-         
-         var serviceToUpdate = await _service.GetById(id);
 
-         if(serviceToUpdate != null)
-         {
+        var serviceToUpdate = await _service.GetById(id);
+
+        if (serviceToUpdate != null)
+        {
             await _service.Update(id, service);
             return NoContent();
-         }else{
+        }
+        else
+        {
             return NotFound();
-         }
+        }
     }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+
+        var serviceToDelete = await _service.GetById(id);
+
+        if (serviceToDelete != null)
         {
-
-         var serviceToDelete = await _service.GetById(id);
-
-         if(serviceToDelete != null)
-         {
             await _service.Delete(id);
             return Ok();
 
-         }else{
+        }
+        else
+        {
 
             return NotFound();
-            
-         } 
+
         }
+    }
 
 }
