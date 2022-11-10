@@ -27,7 +27,6 @@ public class ClientService
             UserName = t.UserName,
             Name = t.Name,
             PhotoProfile = t.PhotoProfile,
-
         }).ToListAsync();
     }
 

@@ -30,8 +30,9 @@ public class ClientController : ControllerBase
         return await _service.GetAllDto();
     }
 
+    [Authorize]
     [HttpGet("get/{id}")]
-    public async Task<ActionResult<Client>> GetById(int id)
+    public async Task<ActionResult<Client>> GetById([FromBody] int id)
     {
         var client = await _service.GetById(id);
 
@@ -59,13 +60,14 @@ public class ClientController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create(Client client)
+    public async Task<IActionResult> Create([FromBody] Client client)
     {
         var newClient = await _service.Create(client);
 
         return CreatedAtAction(nameof(GetById), new { id = newClient.Id }, newClient);
     }
 
+    [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id, Client client)
     {
@@ -84,6 +86,7 @@ public class ClientController : ControllerBase
         else { return NotFound(); }
     }
 
+    [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {

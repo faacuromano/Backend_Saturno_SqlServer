@@ -110,6 +110,7 @@ public partial class SaturnoContext : DbContext
             entity.Property(e => e.UserName)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.PhoneNumber);
         });
 
         modelBuilder.Entity<Service>(entity =>

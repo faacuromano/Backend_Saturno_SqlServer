@@ -65,6 +65,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization(options => {
     options.AddPolicy("SuperAdmin", policy => policy.RequireClaim("Admin Type", "Super"));
 });
+
+//CORS POLICY
+ builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+
+                        policy.WithOrigins("http://localhost:3000");
+                        policy.AllowAnyMethod();
+                        policy.AllowAnyHeader();
+                    });
+            });
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var app = builder.Build();
@@ -81,6 +95,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors();
 
 app.MapControllers();
 
