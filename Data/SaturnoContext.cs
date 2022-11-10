@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data.Models;
-using Saturno_Backend.Data.Dto;
 
 namespace Saturno_Backend.Data;
 
@@ -17,6 +16,8 @@ public partial class SaturnoContext : DbContext
     {
     }
 
+    public virtual DbSet<Administrator> Administrators { get; set; }
+
     public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<Professional> Professionals { get; set; }
@@ -24,13 +25,38 @@ public partial class SaturnoContext : DbContext
     public virtual DbSet<Service> Services { get; set; }
 
     public virtual DbSet<Turn> Turns { get; set; }
-    
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=localhost;Database=Saturno;Trusted_connection=true;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Administrator>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Administ__3214EC271B80ACB9");
+
+            entity.ToTable("Administrator");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.AdminType)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.Pasword)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.RegDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("RegDATE");
+        });
+
         modelBuilder.Entity<Client>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Client__3214EC2751139BE4");
@@ -66,28 +92,28 @@ public partial class SaturnoContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Address)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.BannerPhoto)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Description)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Mail)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Name)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Password)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.PerfilPhoto)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.UserName)
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .IsUnicode(false);
         });
 
