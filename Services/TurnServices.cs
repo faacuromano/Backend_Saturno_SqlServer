@@ -23,8 +23,15 @@ public class TurnServices
         return await _context.Turns.FindAsync(id);
     }
 
-    public async Task<Turn> Create(Turn newTurn)
+    public async Task<Turn> Create(TurnDTO newTurn)
     {
+        var newTurn = new Turn();
+
+        newTurn.Name = newTurnDTO.Name;
+        newTurn.ClientId = newTurnDTO.ClientId;
+        newTurn.ProfessionalId = newTurnDTO.ProfessionalId;
+        newTurn.ServiceId = newTurnDTO.ServiceId;
+
         _context.Turns.Add(newTurn);
         await _context.SaveChangesAsync();
         

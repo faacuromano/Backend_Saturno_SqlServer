@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.DTOs;
 
 namespace Saturno_Backend.Controllers;
 
@@ -34,7 +35,7 @@ public class TurnController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Turn turn)
+    public async Task<IActionResult> Create(TurnDTO turn)
     {
         var newTurn = await _service.Create(turn);
 
@@ -46,7 +47,7 @@ public class TurnController : ControllerBase {
     {
         if (id != turn.Id)
         {
-            return BadRequest();
+            return BadRequest(new { message = $"El ID({id}) de la URL no coincide con el ID({turn.Id}) de la Body Request." });
         }
          
          var turnToUpdate = await _service.GetById(id);
