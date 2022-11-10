@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.Dto;
 
 namespace Saturno_Backend.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class ClientController : ControllerBase
@@ -17,16 +17,37 @@ public class ClientController : ControllerBase
         _service = client;
     }
 
+    [Authorize]
     [HttpGet("getall")]
     public async Task<IEnumerable<Client>> Get()
     {
         return await _service.GetAll();
     }
 
+    [HttpGet("getallDto")]
+    public async Task<IEnumerable<ClientDto>> GetDto()
+    {
+        return await _service.GetAllDto();
+    }
+
     [HttpGet("get/{id}")]
     public async Task<ActionResult<Client>> GetById(int id)
     {
         var client = await _service.GetById(id);
+
+        if (client is null)
+        {
+            return NotFound(
+                new { message = $"El cliente con ID = {id} no existe." });
+        }
+
+        return client;
+    }
+
+    [HttpGet("getDto/{id}")]
+    public async Task<ActionResult<ClientDto>> GetByIdDto(int id)
+    {
+        var client = await _service.GetDtoById(id);
 
         if (client is null)
         {
