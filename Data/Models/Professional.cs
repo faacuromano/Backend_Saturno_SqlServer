@@ -18,7 +18,7 @@ public partial class Professional
     [MaxLength(100)]
     public string Name { get; set; } = null!;
 
-    [MaxLength(100)]
+    [EmailAddress]
     public string Mail { get; set; } = null!;
 
     [MaxLength(100)]
