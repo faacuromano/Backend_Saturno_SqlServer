@@ -28,4 +28,3 @@ public partial class Turn
     [JsonIgnore]
     public virtual Service ServiceNavigation { get; set; } = null!;
 }
-    
