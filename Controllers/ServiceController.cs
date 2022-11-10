@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Saturno_Backend.Controllers;
 
@@ -42,6 +43,7 @@ public class ServiceController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = newService.Id }, newService);
     }
 
+    [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id, Service service)
     {

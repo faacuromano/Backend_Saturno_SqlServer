@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
-
+using Saturno_Backend.Data.Dto;
 namespace Saturno_Backend.Controllers;
+using Microsoft.AspNetCore.Authorization;
+
 
 [ApiController]
 [Route("[controller]")]
@@ -14,12 +16,20 @@ public class ProfessionalController : ControllerBase
         _service = professional;
     }
 
+    [Authorize]
     [HttpGet("getall")]
     public async Task<IEnumerable<Professional>> Get()
     {
         return await _service.GetAll();
     }
 
+    [HttpGet("getallDto")]
+    public async Task<IEnumerable<ProfessionalDto>> GetDto()
+    {
+        return await _service.GetAllDto();
+    }
+
+    [Authorize]
     [HttpGet("get/{id}")]
     public async Task<ActionResult<Professional>> GetById(int id)
     {
@@ -33,6 +43,21 @@ public class ProfessionalController : ControllerBase
         return professional;
     }
 
+    [HttpGet("getDto/{id}")]
+    public async Task<ActionResult<ProfessionalDto>> GetByIdDto(int id)
+    {
+        var professional = await _service.GetDtoById(id);
+
+        if (professional is null)
+        {
+            return NotFound(
+                new { message = $"El cliente con ID = {id} no existe." });
+        }
+
+        return professional;
+    }
+
+    [Authorize]
     [HttpPost("create")]
     public async Task<IActionResult> Create(Professional professional)
     {
@@ -41,6 +66,7 @@ public class ProfessionalController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = newProfessional.Id }, newProfessional);
     }
 
+    [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id, Professional professional)
     {
@@ -64,6 +90,7 @@ public class ProfessionalController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {

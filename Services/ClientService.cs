@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.Dto;
 
 namespace  Saturno_Backend.Services;
 
@@ -18,10 +19,35 @@ public class ClientService
         return await _context.Clients.ToListAsync();
     }
 
+    public async Task<IEnumerable<ClientDto>> GetAllDto()
+    {
+        return await _context.Clients.Select(t => new ClientDto
+        {
+            Id = t.Id,
+            UserName = t.UserName,
+            Name = t.Name,
+            PhotoProfile = t.PhotoProfile,
+        }).ToListAsync();
+    }
+
      public async Task<Client?> GetById(int id)
     {
         return await _context.Clients.FindAsync(id);
     }
+
+    public async Task<ClientDto?> GetDtoById(int id)
+    {
+        return await _context.Clients.
+        Where(t => t.Id == id).
+        Select(t => new ClientDto
+        {
+            Id = t.Id,
+            UserName = t.UserName,
+            Name = t.Name,
+            PhotoProfile = t.PhotoProfile,
+        }).SingleOrDefaultAsync();    
+    }
+
 
     public async Task<Client> Create(Client newClient)
     {

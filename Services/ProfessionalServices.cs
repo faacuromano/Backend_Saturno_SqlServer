@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.Dto;
 
 namespace  Saturno_Backend.Services;
 
@@ -18,9 +19,45 @@ public class ProfessionalServices
         return await _context.Professionals.ToListAsync();
     }
 
+    public async Task<IEnumerable<ProfessionalDto>> GetAllDto()
+    {
+        return await _context.Professionals.Select(t => new ProfessionalDto
+        {
+            Id = t.Id,
+            UserName = t.UserName,
+            Name = t.Name,
+            Description = t.Description,
+            Address = t.Address,
+            PerfilPhoto = t.PerfilPhoto,
+            BannerPhoto = t.BannerPhoto,
+            Mail = t.Mail,
+            PhoneNumber = t.PhoneNumber,
+
+        }).ToListAsync();
+    }
+
      public async Task<Professional?> GetById(int id)
     {
         return await _context.Professionals.FindAsync(id);
+    }
+
+        public async Task<ProfessionalDto?> GetDtoById(int id)
+    {
+        return await _context.Professionals.
+        Where(t => t.Id == id).
+        Select(t => new ProfessionalDto
+        {
+            Id = t.Id,
+            UserName = t.UserName,
+            Name = t.Name,
+            Description = t.Description,
+            Address = t.Address,
+            PerfilPhoto = t.PerfilPhoto,
+            BannerPhoto = t.BannerPhoto,
+            Mail = t.Mail,
+            PhoneNumber = t.PhoneNumber,
+            
+        }).SingleOrDefaultAsync();
     }
 
     public async Task<Professional> Create(Professional newProfessional)
@@ -46,6 +83,7 @@ public class ProfessionalServices
             existingProfessional.PerfilPhoto  = professional.PerfilPhoto ;
             existingProfessional.BannerPhoto   = professional.BannerPhoto  ;
             existingProfessional.PhoneNumber = professional.PhoneNumber;
+            existingProfessional.Address = professional.Address;
 
            await _context.SaveChangesAsync();
          }

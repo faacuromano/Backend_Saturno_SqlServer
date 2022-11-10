@@ -18,7 +18,7 @@ public partial class Professional
     [MaxLength(100)]
     public string Name { get; set; } = null!;
 
-    [EmailAddress]
+    [MaxLength(122)]
     public string Mail { get; set; } = null!;
 
     [MaxLength(100)]
@@ -27,13 +27,12 @@ public partial class Professional
     [MaxLength(100)]
     public string Address { get; set; } = null!;
 
-    [MaxLength(100)]
+    [MaxLength(450)]
     public string PerfilPhoto { get; set; } = null!;
 
-    [MaxLength(100)]
+    [MaxLength(450)]
     public string BannerPhoto { get; set; } = null!;
 
-    [MaxLength(100)]
     public int PhoneNumber { get; set; }
 
     public virtual ICollection<Turn> Turns { get; } = new List<Turn>();

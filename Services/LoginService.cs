@@ -17,4 +17,10 @@ public class LoginService
     {
         return await _context.Administrators.SingleOrDefaultAsync(x => x.Email == admin.Email && x.Password == admin.Password);
     }
+
+    public async Task<Client?> GetUser(ClientLoginDto clientLoginDto)
+    {
+        return await _context.Clients.SingleOrDefaultAsync(x => x.UserName == clientLoginDto.UserName && x.Password == clientLoginDto.Password);
+    }
+    
 }

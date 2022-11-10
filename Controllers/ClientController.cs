@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.Dto;
 
 namespace Saturno_Backend.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class ClientController : ControllerBase
@@ -17,14 +17,22 @@ public class ClientController : ControllerBase
         _service = client;
     }
 
+    [Authorize]
     [HttpGet("getall")]
     public async Task<IEnumerable<Client>> Get()
     {
         return await _service.GetAll();
     }
 
+    [HttpGet("getallDto")]
+    public async Task<IEnumerable<ClientDto>> GetDto()
+    {
+        return await _service.GetAllDto();
+    }
+
+    [Authorize]
     [HttpGet("get/{id}")]
-    public async Task<ActionResult<Client>> GetById(int id)
+    public async Task<ActionResult<Client>> GetById([FromBody] int id)
     {
         var client = await _service.GetById(id);
 
@@ -37,14 +45,29 @@ public class ClientController : ControllerBase
         return client;
     }
 
+    [HttpGet("getDto/{id}")]
+    public async Task<ActionResult<ClientDto>> GetByIdDto(int id)
+    {
+        var client = await _service.GetDtoById(id);
+
+        if (client is null)
+        {
+            return NotFound(
+                new { message = $"El cliente con ID = {id} no existe." });
+        }
+
+        return client;
+    }
+
     [HttpPost("create")]
-    public async Task<IActionResult> Create(Client client)
+    public async Task<IActionResult> Create([FromBody] Client client)
     {
         var newClient = await _service.Create(client);
 
         return CreatedAtAction(nameof(GetById), new { id = newClient.Id }, newClient);
     }
 
+    [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id, Client client)
     {
@@ -63,6 +86,7 @@ public class ClientController : ControllerBase
         else { return NotFound(); }
     }
 
+    [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
