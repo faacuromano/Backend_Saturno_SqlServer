@@ -15,6 +15,33 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+//Requirimento del Token en Swagger (Desactivado siguen funcionando pero sin)
+builder.Services.AddSwaggerGen(setupAction =>  
+{
+    setupAction.AddSecurityDefinition("ConsultaAlumnosApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        Description = "Acá pegar el token generado al loguearse."
+    });
+
+    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement 
+    { 
+        {
+            new OpenApiSecurityScheme  
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ConsultaAlumnosApiBearerAuth" 
+                } //Tiene que coincidir con el id seteado arriba en la definición
+
+            },  new List<string>()
+        }
+    });
+});
+
+
 //Contexto de la Base de Datos
 builder.Services.AddSqlServer<SaturnoContext>(builder.Configuration.GetConnectionString("DataBaseConnection"));
 
