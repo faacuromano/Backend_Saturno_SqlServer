@@ -1,4 +1,4 @@
-namespace Saturno_Backend.Data;
+namespace Saturno_Backend.Data.Dto;
 
 public class TurnDTO
 {

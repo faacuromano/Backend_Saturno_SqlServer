@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Saturno_Backend.Data;
 using Saturno_Backend.Data.Models;
+using Saturno_Backend.Data.Dto;
 
 namespace  Saturno_Backend.Services;
 
@@ -23,7 +24,7 @@ public class TurnServices
         return await _context.Turns.FindAsync(id);
     }
 
-    public async Task<Turn> Create(TurnDTO newTurn)
+    public async Task<Turn> Create(TurnDTO newTurnDTO)
     {
         var newTurn = new Turn();
 

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Saturno_Backend.Services;
 using Saturno_Backend.Data.Models;
-using Saturno_Backend.Data.DTOs;
+using Saturno_Backend.Data.Dto;
 
 namespace Saturno_Backend.Controllers;
 
