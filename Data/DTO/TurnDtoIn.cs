@@ -1,6 +1,6 @@
 namespace Saturno_Backend.Data.Dto;
 
-public class TurnDTO
+public class TurnDtoIn
 {
 
     public int Id { get; set; }

@@ -16,7 +16,7 @@ public class TurnController : ControllerBase {
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Turn>> Get()
+    public async Task<IEnumerable<TurnDtoOut>> Get()
     {
         return await _service.GetAll();
     }
@@ -35,7 +35,7 @@ public class TurnController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(TurnDTO turn)
+    public async Task<IActionResult> Create(TurnDtoIn turn)
     {
         var newTurn = await _service.Create(turn);
 

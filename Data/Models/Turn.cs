@@ -20,12 +20,12 @@ public partial class Turn
     public int ServiceId { get; set; }
 
     [JsonIgnore]
-    public virtual Client Client { get; set; } = null!;
+    public virtual Client ClientNavigation { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual Professional Professional { get; set; } = null!;
+    public virtual Professional ProfessionalNavigation { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual Service Service { get; set; } = null!;
+    public virtual Service ServiceNavigation { get; set; } = null!;
 }
     

@@ -119,17 +119,17 @@ public partial class SaturnoContext : DbContext
             entity.Property(e => e.ProfessionalId).HasColumnName("ProfessionalID");
             entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
 
-            entity.HasOne(d => d.Client).WithMany(p => p.Turns)
+            entity.HasOne(d => d.ClientNavigation).WithMany(p => p.Turns)
                 .HasForeignKey(d => d.ClientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Turn__ClientID__2E1BDC42");
 
-            entity.HasOne(d => d.Professional).WithMany(p => p.Turns)
+            entity.HasOne(d => d.ProfessionalNavigation).WithMany(p => p.Turns)
                 .HasForeignKey(d => d.ProfessionalId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Turn__Profession__2F10007B");
 
-            entity.HasOne(d => d.Service).WithMany(p => p.Turns)
+            entity.HasOne(d => d.ServiceNavigation).WithMany(p => p.Turns)
                 .HasForeignKey(d => d.ServiceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Turn__ServiceID__300424B4");

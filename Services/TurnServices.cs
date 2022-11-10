@@ -14,9 +14,16 @@ public class TurnServices
         _context = context;
     }
 
-    public async Task<IEnumerable<Turn>> GetAll()
+    public async Task<IEnumerable<TurnDtoOut>> GetAll()
     {
-        return await _context.Turns.ToListAsync();
+        return await _context.Turns.Select(t => new TurnDtoOut
+        {
+            Id = t.Id,
+            ProfessionalName = t.ProfessionalNavigation.Name,
+            ClientName = t.ClientNavigation.Name,
+            ServiceName = t.ServiceNavigation.Name,
+            
+        }).ToListAsync();
     }
 
      public async Task<Turn?> GetById(int id)
@@ -24,7 +31,7 @@ public class TurnServices
         return await _context.Turns.FindAsync(id);
     }
 
-    public async Task<Turn> Create(TurnDTO newTurnDTO)
+    public async Task<Turn> Create(TurnDtoIn newTurnDTO)
     {
         var newTurn = new Turn();
 
@@ -39,18 +46,18 @@ public class TurnServices
         return newTurn;
     }
 
-    public async Task Update(int id, Turn appointment)
+    public async Task Update(int id, Turn turn)
     {
          
-        var existingAppointment = await GetById(id); 
+        var existingTurn = await GetById(id); 
 
-        if(existingAppointment != null) 
+        if(existingTurn != null) 
         { 
-            existingAppointment.Id = appointment.Id;
-            existingAppointment.Name = appointment.Name;
-            existingAppointment.ClientId = appointment.ClientId;
-            existingAppointment.ProfessionalId = appointment.ProfessionalId;
-            existingAppointment.ServiceId = appointment.ServiceId;
+            existingTurn.Id = turn.Id;
+            existingTurn.Name = turn.Name;
+            existingTurn.ClientId = turn.ClientId;
+            existingTurn.ProfessionalId = turn.ProfessionalId;
+            existingTurn.ServiceId = turn.ServiceId;
 
             await _context.SaveChangesAsync();
          }
